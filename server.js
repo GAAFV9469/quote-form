@@ -5,7 +5,11 @@ const connectDB = require('./config/db');
 const app = express();
 
 //Initialize Middleware
+// app.use('/api', router);
 app.use (express.json({extended: false}));
+// app.get('/', function(req, res){
+//     res.json({message: 'You have spoken!'})
+// });
 
 //Connect to the DataBase
 connectDB();

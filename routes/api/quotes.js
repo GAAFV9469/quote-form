@@ -6,35 +6,49 @@ const config = require('config');
 // import Model
 const Quote = require('../../models/Quote');
 
+//@route    GET api/quote
+//@desc     get all quotes
+//@access   private eventually for now public
+
+router.get('/', async (req, res) => {
+  try {
+    const quotes = await Quote.find();
+    res.json(quotes);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 //@route    POST api/quote
 //@desc     create a quote in DB
 //@access   private eventually for now public
 router.post(
-  '/quote',
+  '/',
   [
-    check('agent.agentEmail', 'Please enter a valid email address').isEmail(),
-    check('agent.agentName', 'Agent Name is required')
+    check('agentEmail', 'Please enter a valid email address').isEmail(),
+    check('agentName', 'Agent Name is required')
       .not()
       .isEmpty(),
-    check('agent.agencyLocation', 'Agency Location is required')
+    check('agencyLocation', 'Agency Location is required')
       .not()
       .isEmpty(),
-    check('agent.effectiveDate', 'Effective Date is a required field')
+    check('effectiveDate', 'Effective Date is a required field')
       .not()
       .isEmpty(),
-    check('insured.name', 'The name is required')
+    check('insuredName', 'The name is required')
       .not()
       .isEmpty(),
-    check('insured.dateOfBirth', 'Date of Birth is a required field')
+    check('dateOfBirth', 'Date of Birth is a required field')
       .not()
       .isEmpty(),
-    check('locationAddress.street', 'The Location Street is required')
+    check('locationAddressStreet', 'The Location Street is required')
       .not()
       .isEmpty(),
-    check('locationAddress.city', 'The Location City is required')
+    check('locationAddressCity', 'The Location City is required')
       .not()
       .isEmpty(),
-    check('locationAddress.state', 'The Location State is required')
+    check('locationAddressState', 'The Location State is required')
       .not()
       .isEmpty()
   ],
@@ -48,55 +62,37 @@ router.post(
       agentName,
       agency,
       agencyLocation,
-      effectiveDate
-    } = req.body.agent;
-    const {
-      name,
-      mailingAddress,
-      phoneNumber,
+      effectiveDate,
+      insuredName,
+      insuredMailingAddress,
+      insuredPhoneNumber,
       insuredEmail,
-      dateOfBirth
-    } = req.body.insured;
-
-    const { street, city, state, county } = req.body.locationAddress;
-
-    // //build Quote object
-    // const qouteFields = {};
-
-    // if (agentEmail) quoteFields.agentEmail = agentEmail;
-    // if (agentName) quoteFields.agentName = agentName;
-    // if (agency) quoteFields.agency = agency;
-    // if (agencyLocation) quoteFields.agencyLocation = agencyLocation;
-    // if (effectiveDate) quoteFields.effectiveDate = effectiveDate;
-    // if (name) quoteFields.name = name;
-    // if (mailingAddress) quoteFields.mailingAddress = mailingAddress;
-    // if (phoneNumber) quoteFields.phoneNumber = phoneNumber;
-    // if (insuredEmail) quoteFields.insuredEmail = insuredEmail;
-    // if (dateOfBirth) quoteFields.dateOfBirth = dateOfBirth;
-    // if (street) quoteFields.street = street;
-    // if (city) quoteFields.city = city;
-    // if (state) quoteFields.state = state;
-    // if (county) quoteFields.county = county;
+      dateOfBirth,
+      locationAddressStreet,
+      locationAddressCity,
+      locationAddressState,
+      locationAddressCounty
+    } = req.body;
 
     try {
-      const newQuote = new Quote({
+      let quote = new Quote({
         agentEmail,
         agentName,
         agency,
         agencyLocation,
         effectiveDate,
-        name,
-        mailingAddress,
-        phoneNumber,
+        insuredName,
+        insuredMailingAddress,
+        insuredPhoneNumber,
         insuredEmail,
         dateOfBirth,
-        street,
-        city,
-        state,
-        county
+        locationAddressStreet,
+        locationAddressCity,
+        locationAddressState,
+        locationAddressCounty
       });
-      await newQuote.save();
-      res.json(newQuote);
+      await quote.save();
+      res.json(quote);
     } catch (error) {
       console.error(error.message);
       res.status(500).send('Server Error');
@@ -104,4 +100,49 @@ router.post(
   }
 );
 
+//@route    DELETE api/quote/:id
+//@desc     delete a quote by id
+//@access   private eventually for now public
+
+router.delete('/:id', async (req, res) => {
+  try {
+    let quote = await Quote.findById(req.params.id);
+    if (!quote) return res.status(404).json({ msg: 'No quote found!' });
+
+    await Quote.findByIdAndDelete(req.params.id);
+    res.json({ msg: 'Quote removed!' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//@route    PUT api/quote/:id
+//@desc     update a quote
+//@access   private eventually for now public
+
 module.exports = router;
+
+//build Quote object
+// const quoteFields = {};
+
+// if (effectiveDate) quoteFields.effectiveDate = effectiveDate;
+// //build agent object
+// quoteFields.agent = {};
+// if (agentEmail) quoteFields.agent.agentEmail = agentEmail;
+// if (agentName) quoteFields.agent.agentName = agentName;
+// if (agency) quoteFields.agent.agency = agency;
+// if (agencyLocation) quoteFields.agent.agencyLocation = agencyLocation;
+// //build insured object
+// quoteFields.insured = {};
+// if (name) quoteFields.insuredEmail.name = name;
+// if (mailingAddress) quoteFields.insured.mailingAddress = mailingAddress;
+// if (phoneNumber) quoteFields.insured.phoneNumber = phoneNumber;
+// if (insuredEmail) quoteFields.insured.insuredEmail = insuredEmail;
+// if (dateOfBirth) quoteFields.insured.dateOfBirth = dateOfBirth;
+// //build object for locationAddress
+// quoteFields.locationAddress = {};
+// if (street) quoteFields.locationAddress.street = street;
+// if (city) quoteFields.locationAddress.city = city;
+// if (state) quoteFields.locationAddress.state = state;
+// if (county) quoteFields.locationAddress.county = county;
