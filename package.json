@@ -1,0 +1,36 @@
+{
+  "name": "quote-form",
+  "version": "1.0.0",
+  "description": "quote_form link for GAA website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GAAFV9469/quote-form.git"
+  },
+  "author": "Janet Warren",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GAAFV9469/quote-form/issues"
+  },
+  "homepage": "https://github.com/GAAFV9469/quote-form#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.3",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
