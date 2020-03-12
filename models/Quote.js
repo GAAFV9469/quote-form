@@ -48,6 +48,9 @@ const QuoteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  locationAddressZip: {
+    type: String
+  },
   locationAddressCounty: {
     type: String
   }

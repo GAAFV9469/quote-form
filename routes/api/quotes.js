@@ -71,6 +71,7 @@ router.post(
       locationAddressStreet,
       locationAddressCity,
       locationAddressState,
+      locationAddressZip,
       locationAddressCounty
     } = req.body;
 
@@ -89,6 +90,7 @@ router.post(
         locationAddressStreet,
         locationAddressCity,
         locationAddressState,
+        locationAddressZip,
         locationAddressCounty
       });
       await quote.save();
