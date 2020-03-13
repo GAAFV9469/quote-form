@@ -58,8 +58,8 @@ const QuoteForm = () => {
         </div>
         <div className='row'>
           {/* <!------------------------------------------- Agency Information --> */}
-          <form className='col s12'>
-            <div className='row form-group'>
+          <form className='col s12' onSubmit={e => onSubmit(e)}>
+            <div className='row htmlForm-group'>
               <div>
                 <h4>Agency Information</h4>
               </div>
@@ -72,7 +72,7 @@ const QuoteForm = () => {
                   value={agentEmail}
                   onChange={e => onChange(e)}
                 />
-                <label for='agentEmail'>Email</label>
+                <label htmlFor='agentEmail'>Email</label>
               </div>
               <div className='input-field col s6'>
                 <input
@@ -83,7 +83,7 @@ const QuoteForm = () => {
                   value={effectiveDate}
                   onChange={e => onChange(e)}
                 />
-                <label for='effectiveDate'>Effective Date</label>
+                <label htmlFor='effectiveDate'>Effective Date</label>
               </div>
             </div>
             <div className='row'>
@@ -96,7 +96,7 @@ const QuoteForm = () => {
                   value={agentName}
                   onChange={e => onChange(e)}
                 />
-                <label for='agentName'>Agent Name</label>
+                <label htmlFor='agentName'>Agent Name</label>
               </div>
             </div>
             <div className='row'>
@@ -109,7 +109,7 @@ const QuoteForm = () => {
                   value={agency}
                   onChange={e => onChange(e)}
                 />
-                <label for='agency'>Agency name</label>
+                <label htmlFor='agency'>Agency name</label>
               </div>
               <div className='input-field col s6'>
                 <input
@@ -120,7 +120,7 @@ const QuoteForm = () => {
                   value={agencyLocation}
                   onChange={e => onChange(e)}
                 />
-                <label for='agencyLocation'>Agency Location</label>
+                <label htmlFor='agencyLocation'>Agency Location</label>
               </div>
             </div>
             {/* <!------------------------------------ Insured Information --> */}
@@ -137,7 +137,7 @@ const QuoteForm = () => {
                   value={insuredName}
                   onChange={e => onChange(e)}
                 />
-                <label for='insuredName'>Name</label>
+                <label htmlFor='insuredName'>Name</label>
               </div>
             </div>
             <div className='row'>
@@ -150,19 +150,19 @@ const QuoteForm = () => {
                   value={insuredMailingAddress}
                   onChange={e => onChange(e)}
                 />
-                <label for='insuredMailingAddress'>Mailing Address</label>
+                <label htmlFor='insuredMailingAddress'>Mailing Address</label>
               </div>
               {/* <div className="input-field col s2">
               <input id="insured_city" type="text" className="validate" />
-              <label for="insured_city">City</label>
+              <label htmlFor="insured_city">City</label>
             </div>
             <div className="input-field col s2">
               <input id="insured_state" type="text" className="validate" />
-              <label for="insured_state">State</label>
+              <label htmlFor="insured_state">State</label>
             </div>
             <div className="input-field col s2">
               <input id="insured_zip" type="text" className="validate" />
-              <label for="insured_zip">Zip Code</label>
+              <label htmlFor="insured_zip">Zip Code</label>
             </div> */}
             </div>
             <div className='row'>
@@ -175,7 +175,7 @@ const QuoteForm = () => {
                   value={insuredPhoneNumber}
                   onChange={e => onChange(e)}
                 />
-                <label for='insuredPhoneNumber'>Phone Number</label>
+                <label htmlFor='insuredPhoneNumber'>Phone Number</label>
               </div>
               <div className='input-field col s5'>
                 <input
@@ -186,7 +186,7 @@ const QuoteForm = () => {
                   value={insuredEmail}
                   onChange={e => onChange(e)}
                 />
-                <label for='insuredEmail'>Email</label>
+                <label htmlFor='insuredEmail'>Email</label>
               </div>
               <div className='input-field col s3'>
                 <input
@@ -197,7 +197,7 @@ const QuoteForm = () => {
                   value={dateOfBirth}
                   onChange={e => onChange(e)}
                 />
-                <label for='dateOfBirth'>Date of Birth</label>
+                <label htmlFor='dateOfBirth'>Date of Birth</label>
               </div>
             </div>
             <div className='row'>
@@ -210,7 +210,7 @@ const QuoteForm = () => {
                   value={locationAddressStreet}
                   onChange={e => onChange(e)}
                 />
-                <label for='locationAddressStreet'>Location Address</label>
+                <label htmlFor='locationAddressStreet'>Location Address</label>
               </div>
               <div className='input-field col s2'>
                 <input
@@ -221,7 +221,7 @@ const QuoteForm = () => {
                   value={locationAddressCity}
                   onChange={e => onChange(e)}
                 />
-                <label for='locationAddressCity'>City</label>
+                <label htmlFor='locationAddressCity'>City</label>
               </div>
               <div className='input-field col s2'>
                 <input
@@ -232,7 +232,7 @@ const QuoteForm = () => {
                   value={locationAddressState}
                   onChange={e => onChange(e)}
                 />
-                <label for='locationAddressState'>State</label>
+                <label htmlFor='locationAddressState'>State</label>
               </div>
               <div className='input-field col s2'>
                 <input
@@ -241,8 +241,10 @@ const QuoteForm = () => {
                   name='locationAddressZip'
                   value={locationAddressZip}
                   className='validate'
+                  onChange={e => onChange(e)}
+
                 />
-                <label for='locationAddressZip'>Zip Code</label>
+                <label htmlFor='locationAddressZip'>Zip Code</label>
               </div>
             </div>
             <div className='row'>
@@ -255,13 +257,13 @@ const QuoteForm = () => {
                   value={locationAddressCounty}
                   onChange={e => onChange(e)}
                 />
-                <label for='locationAddressCounty'>Location County</label>
+                <label htmlFor='locationAddressCounty'>Location County</label>
               </div>
             </div>
-            <div className='row center'>
-              <h4 for='group1'>Policy Type:</h4>
+            {/* <div className='row'>
+              <h4 htmlFor='group1' className='col s6'>Policy Type:</h4>
               {}
-              <p>
+              <p className='col s6'>
                 <label>
                   <input name='group1' type='radio' checked />
                   <span>HO3</span>
@@ -283,6 +285,10 @@ const QuoteForm = () => {
                   <span>MH </span>
                 </label>
               </p>
+            </div> */}
+            <div className="row">
+            <input type="submit" value="Submit" className="p-2 btn col s12"/>
+
             </div>
           </form>
         </div>

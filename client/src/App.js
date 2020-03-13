@@ -6,7 +6,7 @@ import QuoteForm from './components/quotes/QuoteForm';
 function App() {
   return (
     <div className="App">
-     <h1>Quote Form</h1>
+     <h1 className='center'>Quote Form</h1>
      <QuoteForm/>
     </div>
   );
